@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import GifGrid from './GifGrid';
 
-function App() {
+const App = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [category, setCategory] = useState('');
+
+  const handleSearchTermChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearch = () => {
+    if (searchTerm.trim() !== '') {
+      setCategory(searchTerm);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Gif Search App</h1>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Enter GIF title"
+          value={searchTerm}
+          onChange={handleSearchTermChange}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+      {category && <GifGrid category={category} />}
     </div>
   );
-}
+};
 
 export default App;
